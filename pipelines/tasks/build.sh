@@ -2,7 +2,6 @@
 
 set -e -x
 
-mkdir build-output
 cd scdf-stream-demo
 pwd
 wget https://repo1.maven.org/maven2/org/springframework/cloud/spring-cloud-dataflow-server/2.1.2.RELEASE/spring-cloud-dataflow-server-2.1.2.RELEASE.jar
