@@ -1,0 +1,27 @@
+---
+applications:
+- name: scdf-server-pepsico
+  host: scdf-server-pepsico
+  path: ((pathtojar))
+  memory: 1GB
+  instances: 1
+  buildpacks:
+  - java_buildpack
+  env:
+    SPRING_APPLICATION_NAME: scdf-server-pepsico
+    SPRING_PROFILES_ACTIVE: cloud
+    JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
+    MAVEN_REMOTEREPOSITORIES[REPO1]_URL: https://repo.spring.io/libs-snapshot
+    MAVEN_REMOTEREPOSITORIES[REPO2]_URL: https://dl.bintray.com/tdoddareddy/maven-repo/
+    SPRING_CLOUD_DATAFLOW_TASK_PLATFORM_CLOUDFOUNDRY_ACCOUNTS[default]_CONNECTION_URL: ((api))
+    SPRING_CLOUD_DATAFLOW_TASK_PLATFORM_CLOUDFOUNDRY_ACCOUNTS[default]_CONNECTION_ORG: ((organization))
+    SPRING_CLOUD_DATAFLOW_TASK_PLATFORM_CLOUDFOUNDRY_ACCOUNTS[default]_CONNECTION_SPACE: ((space))
+    SPRING_CLOUD_DATAFLOW_TASK_PLATFORM_CLOUDFOUNDRY_ACCOUNTS[default]_CONNECTION_DOMAIN: cfapps.io
+    SPRING_CLOUD_DATAFLOW_TASK_PLATFORM_CLOUDFOUNDRY_ACCOUNTS[default]_CONNECTION_USERNAME: ((username))
+    SPRING_CLOUD_DATAFLOW_TASK_PLATFORM_CLOUDFOUNDRY_ACCOUNTS[default]_CONNECTION_PASSWORD: ((password))
+    SPRING_CLOUD_DATAFLOW_TASK_PLATFORM_CLOUDFOUNDRY_ACCOUNTS[default]_CONNECTION_SKIPSSLVALIDATION: true
+    SPRING_CLOUD_DATAFLOW_TASK_PLATFORM_CLOUDFOUNDRY_ACCOUNTS[default]_DEPLOYMENT_SERVICES: scdf-demo-mysql
+    SPRING_CLOUD_SKIPPER_CLIENT_SERVER_URI: https://skipper-server-pepsico.cfapps.io/api
+  services:
+    - scdf-demo-mysql
+  

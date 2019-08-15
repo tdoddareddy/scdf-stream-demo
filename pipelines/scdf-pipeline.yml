@@ -1,0 +1,52 @@
+---
+jobs:
+  - name: job-deploy-app
+    public: true
+    serial: true
+    plan:
+      - get: scdf-stream-demo
+        trigger: true
+      - task: build
+        file: scdf-stream-demo/pipelines/tasks/build.yml
+      - put: deploy-server
+        params:
+          manifest: build-output/scdf-server-manifest.yml
+          environment_variables:
+            pathtojar: build-output/spring-cloud-dataflow-server-2.1.2.RELEASE.jar
+            api: {{cf-api}}
+            username: {{cf-username}}
+            password: {{cf-password}}
+            organization: {{cf-organization}}
+            space: {{cf-space}}
+      - put: deploy-skipper
+        params:
+          manifest: build-output/scdf-skipper-manifest.yml
+          environment_variables:
+            pathtojar: build-output/spring-cloud-skipper-server-2.0.3.RELEASE.jar
+            api: {{cf-api}}
+            username: {{cf-username}}
+            password: {{cf-password}}
+            organization: {{cf-organization}}
+            space: {{cf-space}}
+resource_types:
+  - name: cf
+    type: docker-image
+    source:
+      repository: concourse/cf-resource
+      tag: latest
+resources:
+  - name: scdf-stream-demo
+    type: git
+    source:
+      uri: https://github.com/tdoddareddy/scdf-stream-demo.git
+      branch: master
+  - name: deploy-app-to-pcf
+    public: true
+    type: cf
+    source:
+      skip_cert_check: false
+      api: {{cf-api}}
+      username: {{cf-username}}
+      password: {{cf-password}}
+      organization: {{cf-organization}}
+      space: {{cf-space}}
