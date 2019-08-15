@@ -8,7 +8,7 @@ jobs:
         trigger: true
       - task: build
         file: scdf-stream-demo/pipelines/tasks/build.yml
-      - put: deploy-server
+      - put: deploy-app-to-pcf
         params:
           manifest: build-output/scdf-server-manifest.yml
           environment_variables:
@@ -18,7 +18,7 @@ jobs:
             password: {{cf-password}}
             organization: {{cf-organization}}
             space: {{cf-space}}
-      - put: deploy-skipper
+      - put: deploy-app-to-pcf
         params:
           manifest: build-output/scdf-skipper-manifest.yml
           environment_variables:
