@@ -1,7 +1,8 @@
 ---
 applications:
 - name: scdf-skipper-pepsico
-  host: scdf-skipper-pepsico
+  routes:
+  - route: scdf-skipper-pepsico.cfapps.io
   path: ((pathtojar))
   memory: 2GB
   instances: 1

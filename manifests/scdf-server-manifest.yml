@@ -1,7 +1,8 @@
 ---
 applications:
 - name: scdf-server-pepsico
-  host: scdf-server-pepsico
+  routes: 
+  - route: scdf-server-pepsico.cfapps.io
   path: ((pathtojar))
   memory: 1GB
   instances: 1

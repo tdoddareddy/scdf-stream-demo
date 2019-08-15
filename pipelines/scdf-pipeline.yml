@@ -8,11 +8,11 @@ jobs:
         trigger: true
       - task: build
         file: scdf-stream-demo/pipelines/tasks/build.yml
-      - put: deploy-app-to-pcf
+     - put: deploy-app-to-pcf
         params:
-          manifest: build-output/scdf-server-manifest.yml
-          environment_variables:
-            pathtojar: build-output/spring-cloud-dataflow-server-2.1.2.RELEASE.jar
+          manifest: build-output/scdf-skipper-manifest.yml
+          vars:
+            pathtojar: build-output/spring-cloud-skipper-server-2.0.3.RELEASE.jar
             api: {{cf-api}}
             username: {{cf-username}}
             password: {{cf-password}}
@@ -20,9 +20,9 @@ jobs:
             space: {{cf-space}}
       - put: deploy-app-to-pcf
         params:
-          manifest: build-output/scdf-skipper-manifest.yml
-          environment_variables:
-            pathtojar: build-output/spring-cloud-skipper-server-2.0.3.RELEASE.jar
+          manifest: build-output/scdf-server-manifest.yml
+          vars:
+            pathtojar: build-output/spring-cloud-dataflow-server-2.1.2.RELEASE.jar
             api: {{cf-api}}
             username: {{cf-username}}
             password: {{cf-password}}
